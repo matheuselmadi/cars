@@ -14,6 +14,7 @@ public class CarsDTO {
 
     private Integer id;
 
+    @JsonProperty("timestamp_cadastro")
     private Timestamp timestampCadastro;
 
     @JsonProperty("modelo_id")
@@ -23,6 +24,7 @@ public class CarsDTO {
 
     private String combustivel;
 
+    @JsonProperty("num_portas")
     private Integer numPortas;
 
     private String cor;
@@ -32,6 +34,6 @@ public class CarsDTO {
 
     private Double valor;
 
-    private Marca brand;
+    private Integer brand;
 
 }

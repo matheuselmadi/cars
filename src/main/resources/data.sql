@@ -1,13 +1,17 @@
-INSERT INTO marca (nome_marca) VALUES ('Marca1');
-INSERT INTO marca (nome_marca) VALUES ('Marca2');
-INSERT INTO marca (nome_marca) VALUES ('Marca3');
+INSERT INTO marca (nome_marca) VALUES ('TOYOTA');
+INSERT INTO marca (nome_marca) VALUES ('CHEVROLET');
+INSERT INTO marca (nome_marca) VALUES ('VOLKSWAGEN');
 
 -- Suponhamos que as marcas com IDs 1, 2 e 3 existam na tabela de marca.
-INSERT INTO modelo (nome, valor_fipe, marca_id) VALUES ('Modelo1', 25000.00, 1);
-INSERT INTO modelo (nome, valor_fipe, marca_id) VALUES ('Modelo2', 30000.00, 2);
-INSERT INTO modelo (nome, valor_fipe, marca_id) VALUES ('Modelo3', 28000.00, 3);
+INSERT INTO modelo (nome, valor_fipe, marca_id) VALUES ('ETIOS', 36000.00, 1);
+INSERT INTO modelo (nome, valor_fipe, marca_id) VALUES ('COROLLA', 120000.00, 1);
+INSERT INTO modelo (nome, valor_fipe, marca_id) VALUES ('HILLUX SW4', 47500.00, 1);
+INSERT INTO modelo (nome, valor_fipe, marca_id) VALUES ('ONIX PLUS', 50000.00, 2);
+INSERT INTO modelo (nome, valor_fipe, marca_id) VALUES ('JETTA', 49000.00, 3);
 
 -- Suponhamos que os modelos com IDs 1, 2 e 3 existam na tabela de modelo.
-INSERT INTO carro (timestamp_cadastro, modelo_id, ano, combustivel, num_portas, cor) VALUES ('2023-10-18 12:00:00', 1, 2022, 'Gasolina', 4, 'Azul');
-INSERT INTO carro (timestamp_cadastro, modelo_id, ano, combustivel, num_portas, cor) VALUES ('2023-10-18 14:30:00', 2, 2021, 'Álcool', 2, 'Vermelho');
-INSERT INTO carro (timestamp_cadastro, modelo_id, ano, combustivel, num_portas, cor) VALUES ('2023-10-18 15:45:00', 3, 2023, 'Diesel', 5, 'Prata');
+INSERT INTO carro (timestamp_cadastro, modelo_id, ano, combustivel, num_portas, cor) VALUES ('2023-10-05 20:44:48', 1, 2014, 'FLEX', 4, 'BRANCA');
+INSERT INTO carro (timestamp_cadastro, modelo_id, ano, combustivel, num_portas, cor) VALUES ('2023-10-05 15:40:36', 2, 2014, 'FLEX', 4, 'PRETO');
+INSERT INTO carro (timestamp_cadastro, modelo_id, ano, combustivel, num_portas, cor) VALUES ('2023-08-12 03:25:21', 3, 1993, 'Diesel', 4, 'AZUL');
+INSERT INTO carro (timestamp_cadastro, modelo_id, ano, combustivel, num_portas, cor) VALUES ('2023-10-05 17:58:08', 4, 2015, 'FLEX', 4, 'BEGE');
+INSERT INTO carro (timestamp_cadastro, modelo_id, ano, combustivel, num_portas, cor) VALUES ('2023-10-05 15:40:34', 5, 2014, 'FLEX', 4, 'AZUL');
