@@ -19,8 +19,8 @@ public class Carro {
     @Column(name = "timestamp_cadastro")
     private Timestamp timestampCadastro;
 
-    @ManyToOne
-    @JoinColumn(name = "modelo_id", insertable = false, updatable = false)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "modelo_id")
     private Modelo modelo;
 
     private Integer ano;

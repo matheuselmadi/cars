@@ -37,7 +37,7 @@ public class ModeloService {
     @Transactional(readOnly = true)
     public List<ModeloDTO> getAllModelos() {
         final List<Modelo> modelos = modeloRepository.findAll();
-        return modelos.stream().map(tipoVeiculo -> mapToDTO(tipoVeiculo, new ModeloDTO()))
+        return modelos.stream().map(modelo -> mapToDTO(modelo, new ModeloDTO()))
                 .toList();
     }
 

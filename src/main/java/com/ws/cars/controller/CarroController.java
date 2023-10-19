@@ -1,5 +1,6 @@
 package com.ws.cars.controller;
 
+import com.ws.cars.dto.CarroDTO;
 import com.ws.cars.dto.CarsDTO;
 import com.ws.cars.service.CarroService;
 import jakarta.validation.Valid;
@@ -17,28 +18,33 @@ public class CarroController {
     @Autowired
     private CarroService carroService;
 
-    @GetMapping
+    @GetMapping("/all")
     public List<CarsDTO> getAll() {
         return carroService.getAllCars();
     }
 
+    @GetMapping
+    public List<CarroDTO> getAllCarros() {
+        return carroService.getAllCarros();
+    }
+
     @GetMapping("/{id}")
-    public CarsDTO getById(@PathVariable Integer id) {
+    public CarroDTO getById(@PathVariable Integer id) {
         return carroService.getCarroById(id);
     }
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public CarsDTO createCarro(@RequestBody @Valid CarsDTO carsDTO) {
-        return carroService.createCarro(carsDTO);
+    public ResponseEntity<Integer> createCarro(
+            @RequestBody @Valid final CarroDTO carroDTO) {
+        return new ResponseEntity<>(carroService.createCarro(carroDTO), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> updateCarro(
+    public ResponseEntity<CarroDTO> updateCarro(
             @PathVariable final Integer id,
-            @RequestBody @Valid final CarsDTO carsDTO) {
-        carroService.updateCarro(id, carsDTO);
-        return ResponseEntity.ok().build();
+            @RequestBody @Valid final CarroDTO carroDTO) {
+        CarroDTO updatedCarro = carroService.updateCarro(id, carroDTO);
+        return ResponseEntity.ok(updatedCarro);
     }
 
     @DeleteMapping("/{ids}")
