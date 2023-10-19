@@ -14,13 +14,12 @@ public class Modelo {
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "modelo_id_seq")
     private Integer id;
 
-    @ManyToOne
-    @JoinColumn(name = "marca_id", insertable = false, updatable = false)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "marca_id")
     private Marca marca;
 
     private String nome;
 
     @Column(name = "valor_fipe")
     private Double valorFipe;
-
 }

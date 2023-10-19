@@ -28,17 +28,17 @@ public class ModeloController {
     }
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public ModeloDTO createModelo(@RequestBody @Valid ModeloDTO modeloDTO) {
-        return modeloService.createModelo(modeloDTO);
+    public ResponseEntity<Integer> createModelo(
+            @RequestBody @Valid final ModeloDTO modeloDTO) {
+        return new ResponseEntity<>(modeloService.createModelo(modeloDTO), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> updateModelo(
-            @PathVariable final Integer id,
-            @RequestBody @Valid final ModeloDTO modeloDTO) {
-        modeloService.updateModelo(id, modeloDTO);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<ModeloDTO> updateModelo(
+            @PathVariable Integer id,
+            @RequestBody ModeloDTO modeloDTO) {
+        ModeloDTO updatedModelo = modeloService.updateModelo(id, modeloDTO);
+        return ResponseEntity.ok(updatedModelo);
     }
 
     @DeleteMapping("/{ids}")

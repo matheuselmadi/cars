@@ -3,10 +3,12 @@ package com.ws.cars.service;
 import com.ws.cars.dto.ModeloDTO;
 import com.ws.cars.entity.Marca;
 import com.ws.cars.entity.Modelo;
+import com.ws.cars.repository.MarcaRepository;
 import com.ws.cars.repository.ModeloRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
@@ -17,33 +19,53 @@ public class ModeloService {
     @Autowired
     private ModeloRepository modeloRepository;
 
-    public ModeloDTO createModelo(ModeloDTO modeloDTO) {
-        return mapToDTO(modeloRepository.save(mapToEntity(modeloDTO)));
+    @Autowired
+    private MarcaRepository marcaRepository;
+
+    @Transactional
+    public Integer createModelo(final ModeloDTO modeloDTO) {
+        final Modelo modelo = new Modelo();
+        mapToEntity(modeloDTO, modelo);
+
+        Marca marca = marcaRepository.findById(modeloDTO.getMarcaId())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Marca não encontrada para ID: " + modeloDTO.getMarcaId()));
+
+        modelo.setMarca(marca);
+        return modeloRepository.save(modelo).getId();
     }
 
+    @Transactional(readOnly = true)
     public List<ModeloDTO> getAllModelos() {
-        List<Modelo> modelos = modeloRepository.findAll();
-        return modelos.stream().map(this::mapToDTO).toList();
+        final List<Modelo> modelos = modeloRepository.findAll();
+        return modelos.stream().map(tipoVeiculo -> mapToDTO(tipoVeiculo, new ModeloDTO()))
+                .toList();
     }
 
-    public ModeloDTO getModeloById(Integer id) {
-        return mapToDTO(modeloRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Modelo não encontrado.")));
+    @Transactional(readOnly = true)
+    public ModeloDTO getModeloById(final Integer id) {
+        return modeloRepository.findById(id).map(modelo -> mapToDTO(modelo, new ModeloDTO()))
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Modelo não encontrado."));
     }
 
-    public void updateModelo(Integer id, ModeloDTO modeloDTO) {
-        final Modelo modelo = modeloRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-        mapToEntity(modeloDTO);
-        modeloRepository.save(modelo);
+    @Transactional
+    public ModeloDTO updateModelo(Integer id, ModeloDTO modeloDTO) {
+        Modelo existingModelo = modeloRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Modelo não encontrado"));
+
+        Modelo updatedModelo = mapToEntity(modeloDTO, existingModelo);
+        modeloRepository.save(updatedModelo);
+
+        return mapToDTO(updatedModelo, modeloDTO);
     }
 
     public void deleteModelos(final List<Integer> ids) {
         modeloRepository.deleteAllById(ids);
     }
 
-    private Modelo mapToEntity(ModeloDTO modeloDTO) {
+    private Modelo mapToEntity(
+            final ModeloDTO modeloDTO,
+            final Modelo modelo) {
 
-        Modelo modelo = new Modelo();
         modelo.setId(modeloDTO.getId());
         modelo.setNome(modeloDTO.getNome());
         modelo.setValorFipe(modeloDTO.getValorFipe());
@@ -55,9 +77,10 @@ public class ModeloService {
         return modelo;
     }
 
-    private ModeloDTO mapToDTO(Modelo modelo) {
+    private ModeloDTO mapToDTO(
+            final Modelo modelo,
+            final ModeloDTO modeloDTO) {
 
-        ModeloDTO modeloDTO = new ModeloDTO();
         modeloDTO.setId(modelo.getId());
         modeloDTO.setMarcaId(modelo.getMarca().getId());
         modeloDTO.setNome(modelo.getNome());

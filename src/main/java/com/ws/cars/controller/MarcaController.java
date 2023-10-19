@@ -34,11 +34,11 @@ public class MarcaController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> updateMarca(
-            @PathVariable final Integer id,
-            @RequestBody @Valid final MarcaDTO marcaDTO) {
-        marcaService.updateMarca(id, marcaDTO);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<MarcaDTO> updateMarca(
+            @PathVariable Integer id,
+            @RequestBody @Valid MarcaDTO marcaDTO) {
+        MarcaDTO updateMarca = marcaService.updateMarca(id, marcaDTO);
+        return ResponseEntity.ok(updateMarca);
     }
 
     @DeleteMapping("/{ids}")

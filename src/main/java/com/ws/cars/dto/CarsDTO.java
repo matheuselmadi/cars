@@ -1,8 +1,6 @@
 package com.ws.cars.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.ws.cars.entity.Marca;
-import com.ws.cars.entity.Modelo;
 import lombok.Getter;
 import lombok.Setter;
 

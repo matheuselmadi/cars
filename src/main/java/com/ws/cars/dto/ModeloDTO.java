@@ -1,6 +1,6 @@
 package com.ws.cars.dto;
 
-import com.ws.cars.entity.Marca;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,9 +10,11 @@ public class ModeloDTO {
 
     private Integer id;
 
+    @JsonProperty("marca_id")
     private Integer marcaId;
 
     private String nome;
 
+    @JsonProperty("valor_fipe")
     private Double valorFipe;
 }

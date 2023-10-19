@@ -6,6 +6,7 @@ import com.ws.cars.repository.MarcaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
@@ -29,11 +30,17 @@ public class MarcaService {
         return mapToDTO(marcaRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Marca não encontrada.")));
     }
 
-    public void updateMarca(Integer id, MarcaDTO marcaDTO) {
-        final Marca marca = marcaRepository.findById(id)
+    @Transactional
+    public MarcaDTO updateMarca(Integer id, MarcaDTO marcaDTO) {
+        Marca existingMarca = marcaRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-        mapToEntity(marcaDTO);
-        marcaRepository.save(marca);
+
+        existingMarca.setId(marcaDTO.getId());
+        existingMarca.setNomeMarca(marcaDTO.getNomeMarca());
+
+        marcaRepository.save(existingMarca);
+
+        return mapToDTO(existingMarca);
     }
 
     public void deleteMarcas(final List<Integer> ids) {
