@@ -14,15 +14,34 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
+/**
+ * Classe de serviço para lidar com operações relacionadas a carros.
+ *
+ * Esta classe fornece métodos para criar, atualizar, recuperar e excluir informações de carros.
+ * Ela também lida com a transformação de dados entre DTOs (Data Transfer Objects) e entidades de carro.
+ */
 @Service
 public class CarroService {
 
+    /**
+     * Repositório para entidades de carros.
+     */
     @Autowired
     private CarroRepository carroRepository;
 
+    /**
+     * Repositório para entidades de modelos de carro.
+     */
     @Autowired
     private ModeloRepository modeloRepository;
 
+    /**
+     * Cria um novo carro com base nos dados do DTO fornecido.
+     *
+     * @param carroDTO O DTO contendo os dados do carro a ser criado.
+     * @return O ID do carro recém-criado.
+     * @throws ResponseStatusException Se o modelo associado ao carro não for encontrado.
+     */
     @Transactional
     public Integer createCarro(final CarroDTO carroDTO) {
         final Carro carro = new Carro();
@@ -35,11 +54,21 @@ public class CarroService {
         return carroRepository.save(carro).getId();
     }
 
+    /**
+     * Obtém uma lista de carros em formato DTO.
+     *
+     * @return Uma lista de carros no formato DTO.
+     */
     public List<CarsDTO> getAllCars() {
         List<Carro> cars = carroRepository.findAll();
         return cars.stream().map(this::mapCarsToDTO).toList();
     }
 
+    /**
+     * Obtém uma lista de carros em formato DTO.
+     *
+     * @return Uma lista de carros no formato DTO.
+     */
     @Transactional(readOnly = true)
     public List<CarroDTO> getAllCarros() {
         final List<Carro> cars = carroRepository.findAll();
@@ -47,12 +76,27 @@ public class CarroService {
                 .toList();
     }
 
+    /**
+     * Obtém os detalhes de um carro com base em seu ID.
+     *
+     * @param id O ID do carro a ser recuperado.
+     * @return Um objeto CarroDTO contendo os detalhes do carro.
+     * @throws ResponseStatusException Se o carro não for encontrado.
+     */
     @Transactional(readOnly = true)
     public CarroDTO getCarroById(final Integer id) {
         return carroRepository.findById(id).map(carro -> mapToDTO(carro, new CarroDTO()))
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Carro não encontrado."));
     }
 
+    /**
+     * Atualiza os detalhes de um carro existente com base em seu ID.
+     *
+     * @param id       O ID do carro a ser atualizado.
+     * @param carroDTO O DTO contendo os novos dados do carro.
+     * @return O DTO atualizado do carro.
+     * @throws RuntimeException Se o carro não for encontrado.
+     */
     @Transactional
     public CarroDTO updateCarro(Integer id, CarroDTO carroDTO) {
         Carro existingCarro = carroRepository.findById(id)
@@ -64,10 +108,22 @@ public class CarroService {
         return mapToDTO(updatedCarro, carroDTO);
     }
 
+    /**
+     * Exclui carros com base em uma lista de IDs.
+     *
+     * @param ids Uma lista de IDs de carros a serem excluídos.
+     */
     public void deleteCarros(final List<Integer> ids) {
         carroRepository.deleteAllById(ids);
     }
 
+    /**
+     * Mapeia os dados de um objeto CarroDTO para uma entidade Carro.
+     *
+     * @param carroDTO O objeto CarroDTO a ser mapeado.
+     * @param carro A entidade Carro na qual os dados serão mapeados.
+     * @return A entidade Carro mapeada com os dados do CarroDTO.
+     */
     private Carro mapToEntity(
             final CarroDTO carroDTO,
             final Carro carro) {
@@ -86,6 +142,13 @@ public class CarroService {
         return carro;
     }
 
+    /**
+     * Mapeia os dados de uma entidade Carro para um objeto CarroDTO.
+     *
+     * @param carro A entidade Carro a ser mapeada.
+     * @param carroDTO O objeto CarroDTO no qual os dados serão mapeados.
+     * @return O objeto CarroDTO mapeado com os dados da entidade Carro.
+     */
     private CarroDTO mapToDTO(
             final Carro carro,
             final CarroDTO carroDTO) {
@@ -101,6 +164,12 @@ public class CarroService {
         return carroDTO;
     }
 
+    /**
+     * Mapeia os dados de uma entidade Carro para um objeto CarsDTO.
+     *
+     * @param carro A entidade Carro a ser mapeada.
+     * @return O objeto CarsDTO mapeado com os dados da entidade Carro.
+     */
     private CarsDTO mapCarsToDTO(Carro carro) {
 
         CarsDTO carsDTO = new CarsDTO();
