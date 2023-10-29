@@ -23,15 +23,9 @@ import java.util.List;
 @Service
 public class CarroService {
 
-    /**
-     * Repositório para entidades de carros.
-     */
     @Autowired
     private CarroRepository carroRepository;
 
-    /**
-     * Repositório para entidades de modelos de carro.
-     */
     @Autowired
     private ModeloRepository modeloRepository;
 
@@ -55,7 +49,7 @@ public class CarroService {
     }
 
     /**
-     * Obtém uma lista de carros em formato DTO.
+     * Obtém uma lista de carros em formato DTO no modelo solicitado no teste.
      *
      * @return Uma lista de carros no formato DTO.
      */
@@ -171,7 +165,6 @@ public class CarroService {
      * @return O objeto CarsDTO mapeado com os dados da entidade Carro.
      */
     private CarsDTO mapCarsToDTO(Carro carro) {
-
         CarsDTO carsDTO = new CarsDTO();
         carsDTO.setId(carro.getId());
         carsDTO.setTimestampCadastro(carro.getTimestampCadastro());

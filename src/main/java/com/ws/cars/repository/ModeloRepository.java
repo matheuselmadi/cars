@@ -4,8 +4,7 @@ import com.ws.cars.entity.Modelo;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
- * Repositório para a entidade Modelo.
- * Este repositório fornece operações de acesso a dados para a entidade Modelo.
+ * Interface responsável por fornecer métodos para acessar e gerenciar objetos Modelo no banco de dados.
  */
 public interface ModeloRepository extends JpaRepository<Modelo, Integer> {
 }

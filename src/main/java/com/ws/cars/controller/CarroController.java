@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * Controlador que lida com as operações relacionadas a carros.
+ * Controller que lida com as operações relacionadas a carros.
  */
 @RestController
 @RequestMapping(value = "/cars")
@@ -22,7 +22,7 @@ public class CarroController {
     private CarroService carroService;
 
     /**
-     * Retorna todos os carros disponíveis.
+     * Retorna todos os carros disponíveis no formato solicitado no teste.
      *
      * @return Lista de objetos CarsDTO contendo informações de carros.
      */

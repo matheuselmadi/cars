@@ -12,7 +12,10 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 
 /**
- * Esta classe fornece serviços relacionados a marcas de carros.
+ * Classe de serviço para lidar com operações relacionadas a marcas de carros.
+ *
+ * Esta classe fornece métodos para criar, atualizar, recuperar e excluir informações de carros.
+ * Ela também lida com a transformação de dados entre DTOs (Data Transfer Objects) e entidades de carro.
  */
 @Service
 public class MarcaService {
@@ -88,7 +91,6 @@ public class MarcaService {
      * @return Um objeto Marca correspondente.
      */
     private Marca mapToEntity(MarcaDTO marcaDTO) {
-
         Marca marca = new Marca();
         marca.setId(marcaDTO.getId());
         marca.setNomeMarca(marcaDTO.getNomeMarca());
@@ -103,7 +105,6 @@ public class MarcaService {
      * @return Um objeto MarcaDTO correspondente.
      */
     private MarcaDTO mapToDTO(Marca marca) {
-
         MarcaDTO marcaDTO = new MarcaDTO();
         marcaDTO.setId(marca.getId());
         marcaDTO.setNomeMarca(marca.getNomeMarca());

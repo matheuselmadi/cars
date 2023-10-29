@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * Controlador para gerenciar operações relacionadas aos modelos de carros.
+ * Controller para gerenciar operações relacionadas aos modelos de carros.
  */
 @RestController
 @RequestMapping(value = "/modelo")
