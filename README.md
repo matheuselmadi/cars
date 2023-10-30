@@ -4,8 +4,8 @@ Aplicação Springboot com acesso a BD que expõe endpoints Rest, exibe uma list
 
 ## Vercel
 
-Aplicação rodando no Vercel: [Cars](https://cars-fe.vercel.app/)\
-Obs: Ao acessar o vercel pode ser necessario clicar em continuar, em um aviso de segurança, devido ao certificado SSL gerado para o IP onde o Backend esta hospedao (instância EC2 AWS).
+Obs: Antes de acessar o vercel, [acesse o link do Backend](https://52.67.153.18:8443/cars/all), para prosseguir com o aviso de segurança devido ao certificado autoassinado SSL gerado para o IP onde o Backend esta hospedado (instância EC2 AWS). Se não fizer esta parte o aplicativo ficara carregando, pois emitira um erro de certificado não confiável.\
+Aplicação rodando no Vercel: [Cars](https://cars-fe.vercel.app/)
 
 ## Informações
 
@@ -44,3 +44,7 @@ server.ssl.key-alias: certificado2
 server.ssl.key-store-type: JKS
 ```
 Faça os ajustes na classe [CorsConfig](https://github.com/matheuselmadi/cars/blob/main/src/main/java/com/ws/cars/config/CorsConfig.java) com a URL de seu Frontend.
+
+## Frontend
+
+Frontend para consumo da api: [Cars-fe](https://github.com/matheuselmadi/cars-fe).
