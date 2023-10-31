@@ -1,17 +1,17 @@
 # Cars API Spring Boot
 
-Aplicação Springboot com acesso a BD que expõe endpoints Rest, exibe uma listagem de veículos em um formato especifico. Possui endpoints para CRUD de carros, marcas e modelos.
+Aplicação Springboot com acesso a BD que expõe endpoints Rest, exibe uma listagem de veículos em um formato específico. Possui endpoints para CRUD de carros, marcas e modelos.
 
 ## Vercel
 
-Obs: Antes de acessar o vercel, [acesse o link do Backend](https://52.67.153.18:8443/cars/all), para prosseguir com o aviso de segurança devido ao certificado autoassinado SSL gerado para o IP onde o Backend esta hospedado (instância EC2 AWS). Se não fizer esta parte o aplicativo ficara carregando, pois emitira um erro de certificado não confiável.\
+Obs: Antes de acessar o vercel, [acesse o link do Backend](https://52.67.153.18:8443/cars/all), para prosseguir com o aviso de segurança devido ao certificado autoassinado SSL gerado para o IP onde o Backend está hospedado (instância EC2 AWS). Se não fizer esta parte o aplicativo ficará carregando, pois emitirá um erro de certificado não confiável.\
 Aplicação rodando no Vercel: [Cars](https://cars-fe.vercel.app/)
 
 ## Informações
 
 O arquivo [data.sql](https://github.com/matheuselmadi/cars/blob/main/src/main/resources/data.sql) insere dados das tabelas.
 
-É possivel utilziar o banco de dados em Memória H2 substituindo as informações no arquivo [application.properties](https://github.com/matheuselmadi/cars/blob/main/src/main/resources/application.properties):
+É possivel utilizar o banco de dados em Memória H2 substituindo as informações no arquivo [application.properties](https://github.com/matheuselmadi/cars/blob/main/src/main/resources/application.properties):
 
 Substitua as configurações Postgres:
 ```sh
@@ -34,7 +34,7 @@ Adicione a linha nas configurações do Hibernate:
 spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.H2Dialect
 ```
 
-Para utilizar HTTPS crie um certificado e altere as configurações(ou remova-as caso nao for utilizar):
+Para utilizar HTTPS crie um certificado e altere as configurações (ou remova-as caso nao for utilizar):
 ```sh
 server.port=8443
 server.ssl.enabled=true
@@ -48,3 +48,7 @@ Faça os ajustes na classe [CorsConfig](https://github.com/matheuselmadi/cars/bl
 ## Frontend
 
 Frontend para consumo da api: [Cars-fe](https://github.com/matheuselmadi/cars-fe).
+
+## Kotlin
+
+Versão da api em kotlin: [Cars-kotlin](https://github.com/matheuselmadi/cars-kotlin).
